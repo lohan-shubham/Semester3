@@ -1,0 +1,8 @@
+warning: 
+1> return type defaults to ‘int’ [-Wimplicit-int]
+>>>>this warning is due to not defining any return type of function .
+ so its by default convert to ints depending on the nature of what we return inside  in the function
+
+2> implicit declaration of function ‘round’ [-Wimplicit-function-declaration]
+3> incompatible implicit declaration of built-in function ‘round’
+As we are using round function in our code but due to not including math.h in the code this warning is shown.

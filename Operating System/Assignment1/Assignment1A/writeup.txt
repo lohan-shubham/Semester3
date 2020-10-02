@@ -1,0 +1,14 @@
+In my program I'm having a function named process which having a string parameter passed through it.
+This string parameter is used to tell the fucntion that for which section we have to calculate the average marks of the students.
+
+used syscall:
+	I'm using write system call to print the required data into the console.
+
+error handled:
+mainly two type of error is handled by my program
+1) as i used fopen to open csv file , which return null when openning a file caused any error.
+so if like file is not present or cruptted then my program throw error showing that "File cant be opened".
+
+2) I used fork() syscall to create child process it return 0 for child process and a no greater than 0 for parent process && negative value when there is an error while creating the process.
+so whenever my program failed to create process it throw error
+that  "Process cant be created".

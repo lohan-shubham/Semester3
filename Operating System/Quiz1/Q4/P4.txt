@@ -1,0 +1,4 @@
+Changes has been needed:
+1> because if we write code in 32bit architechure and try to compile in 64 bit there will be
+achitechure incompatible error.
+so we have to write another code in 64bit.

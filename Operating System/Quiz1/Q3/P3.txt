@@ -1,0 +1,2 @@
+I'm taking a int/(long int) pointer which store the address of char array upto the size of int i.e. of 4/8 bytes.
+then store data using the pointer variable that I defined earlier.
