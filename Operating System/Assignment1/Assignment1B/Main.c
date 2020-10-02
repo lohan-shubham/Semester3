@@ -485,6 +485,7 @@ int main() // start of the shell command prompt
     // strcat(history_path, system("echo $USER"));
     // strcat(history_path,"/.bash_history");
     // printf("path %s", history_path);
+    // printf("%s\n",username );
 
     while (1) // This is a infinite loop which won't terminate till it encounters a exit code zero;
     {
@@ -495,7 +496,7 @@ int main() // start of the shell command prompt
         gets(userCmdInput);
         FILE *file;
 
-        file = fopen("/home/shubham-lohan/.bash_history", "a+");
+        file = fopen(history_path, "a+");
         fputs(userCmdInput, file);
         fputs("\n", file);
         fclose(file);
