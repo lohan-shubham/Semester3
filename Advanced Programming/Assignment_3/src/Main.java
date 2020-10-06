@@ -344,13 +344,31 @@ public class Main {
     }
 
     public static void declareWinner() {
+        System.out.println("---------Game Over-----------");
         if (commonerAlive + detectiveAlive + healerAlive == mafiaAlive) {
             System.out.println("Mafia wins");
-            return;
         }
-        if (mafiaAlive == 0) {
+        else if (mafiaAlive == 0) {
             System.out.println("Mafia loose");
-            return;
+        }
+        System.out.print("Mafias are ");
+        for (Mafia mafia : mafiaHashMap.values()) {
+            System.out.print("Player" + mafia.getPlayerID() + " ");
+        }
+        System.out.println();
+        System.out.print("Detectives are ");
+        for (Detective detective : detectiveHashMap.values()) {
+            System.out.print("Player" + detective.getPlayerID() + " ");
+        }
+        System.out.println();
+        System.out.print("Healers are ");
+        for (Healer healer : healerHashMap.values()) {
+            System.out.print("Player" + healer.getPlayerID() + " ");
+        }
+        System.out.println();
+        System.out.print("Commeners are ");
+        for (Commoner commoner : commonerHashMap.values()) {
+            System.out.print("Player" + commoner.getPlayerID() + " ");
         }
 
     }
