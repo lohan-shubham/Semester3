@@ -5,3 +5,5 @@ compile:
 run: compile
 	./a.out
 
+clean:
+	rm a.out
