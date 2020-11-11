@@ -13,6 +13,7 @@ void *ChildProcess()
       --global_number;
       printf("%d ", global_number);
    }
+   exit(EXIT_SUCCESS);
 }
 void *ParentProcess()
 {
@@ -22,6 +23,7 @@ void *ParentProcess()
       ++global_number;
       printf("%d ", global_number);
    }
+   exit(EXIT_SUCCESS);
 }
 int main()
 {

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <pthread.h>
 int global_number = 10;
-void *ChildProcess()
+void *ChildProcess(void* arg)
 {
    printf("\n\nChild Process\n\n");
    while (global_number > -90)
@@ -13,8 +13,9 @@ void *ChildProcess()
       --global_number;
       printf("%d ", global_number);
    }
+   pthread_exit(NULL); 
 }
-void *ParentProcess()
+void *ParentProcess(void* arg)
 {
    printf("\n\nParent Process\n\n");
    while (global_number < 100)
@@ -22,6 +23,7 @@ void *ParentProcess()
       ++global_number;
       printf("%d ", global_number);
    }
+   pthread_exit(NULL); 
 }
 int main()
 {

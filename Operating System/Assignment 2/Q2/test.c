@@ -20,4 +20,5 @@ int main()
 		printf("Failure");
 
 	free(filename);
+	return 0;
 }
