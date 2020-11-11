@@ -43,10 +43,7 @@ SYSCALL_DEFINE2(sh_task_info, int, pid, char *, filename)
   fl = filp_open(file_name, O_WRONLY | O_CREAT, 0644);
 
   task = pid_task(find_vpid(pid), PIDTYPE_PID);
-  if (task == NULL)
-  {
-    return -EINVAL;
-  }
+  
   char data1[100] = "";
   char data2[100] = "";
   char data3[100] = "";
@@ -97,11 +94,6 @@ SYSCALL_DEFINE2(sh_task_info, int, pid, char *, filename)
   strcat(data, data5);
   strcat(data, data6);
   strcat(data, data7);
-
-  if (fl < 0)
-  {
-    return -EISDIR;
-  }
 
   write_flag = vfs_write(fl, data, strlen(data), &fl->f_pos);
 
