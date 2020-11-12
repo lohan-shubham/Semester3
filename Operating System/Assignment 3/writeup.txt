@@ -1,0 +1,20 @@
+OS Assignment-3 Writeup
+
+Working of SYSCALL:
+SYSCALL_DEFINE2(rtnice,int, pid,long, time)
+it takes two argument pid of type int and time of type long(in sec)
+In my assignment the syscall no is 440
+and it will return 0 on sucessfull working otherwise return negative value depending on the error.
+In my syscall it will takes the value of time(in sec) and changes the rtnice value of the given PID task attributes
+
+CFS Working:
+In my implementation the process with greater(non-zero) rtnice value and lesser vruntime will prefer by the scheduler.
+I added a new attribute of type u64 in sched_entity structure
+changes made in the file:
+In sched.h I added new attribute rtnice.
+In core.c I initialize the rtnice value when task is created
+and In fair.c I changed the defination of function such that it will work with new rtnice value.
+
+Error Handled:
+if PID is negative or greater than 32768 ,then it will not process further
+if negative value is given to the time ,then it will not process further
