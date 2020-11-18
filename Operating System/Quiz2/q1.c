@@ -30,7 +30,8 @@ int main()
 		return -1; 
 	} 
 
-	scanf("%s", input_str); 
+	scanf("%[^\n]%*c", input_str); 
+
 	pid = fork(); 
 
 	if (pid < 0) 
@@ -59,7 +60,8 @@ int main()
 		// Read string from child, print it and close 
 		// reading end. 
 		read(fd2[0], input_str, 100); 
-		printf("Final string %s\n", input_str); 
+		// printf("%s", input_str); 
+		puts(input_str);
 		close(fd2[0]); 
 	} 
 
@@ -72,7 +74,32 @@ int main()
 		read(fd1[0], input_str, 100); 
 
 		// Concatenate a fixed string with it 
+	
+
 		for(int i=0;i<strlen(input_str) && input_str[i]!='\0';i++){
+			if(input_str[i]==92){
+
+				input_str[i]=32; // ASCII value for space
+				i++;
+				if(input_str[i]=='t') //tab
+					input_str[i]=9;  
+				if(input_str[i]=='n')  //newline
+					input_str[i]=10;
+				if(input_str[i]=='r')  //cariage return
+					input_str[i]=13;
+				if(input_str[i]=='v')  //vertical tab
+					input_str[i]=11;
+				if(input_str[i]=='a')  //bell
+					input_str[i]=7;
+				if(input_str[i]=='b')	//backspace
+					input_str[i]=8;		
+				if(input_str[i]=='f')  //form feed
+					input_str[i]=12;
+				if(input_str[i]==92)  //ASCII value of '/'
+					input_str[i]=92;
+				continue;
+
+			}
 			input_str[i]=toupper(input_str[i]);
 
 		}
