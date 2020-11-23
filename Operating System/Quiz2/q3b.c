@@ -1,67 +1,53 @@
-/*
-	Simple udp client
-*/
-#include<stdio.h>	//printf
-#include<string.h> //memset
-#include<stdlib.h> //exit(0);
-#include<arpa/inet.h>
-#include<sys/socket.h>
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <string.h> 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <arpa/inet.h> 
+#include <netinet/in.h> 
+int main() { 
+	int sockfd; 
+	char buffer[1000];
 
-#define SERVER "127.0.0.1"
-#define BUFLEN 512	//Max length of buffer
-#define PORT 8888	//The port on which to send data
+	struct sockaddr_in	 servaddr; 
 
-void die(char *s)
-{
-	perror(s);
-	exit(1);
-}
+	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+		perror("socket creation failed"); 
+		exit(EXIT_FAILURE); 
+	} 
 
-int main(void)
-{
-	struct sockaddr_in si_other;
-	int s, i, slen=sizeof(si_other);
-	char buf[BUFLEN];
-	char message[BUFLEN];
-
-	if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
-	{
-		die("socket");
-	}
-
-	memset((char *) &si_other, 0, sizeof(si_other));
-	si_other.sin_family = AF_INET;
-	si_other.sin_port = htons(PORT);
+	memset(&servaddr, 0, sizeof(servaddr)); 
 	
-	if (inet_aton(SERVER , &si_other.sin_addr) == 0) 
-	{
-		fprintf(stderr, "inet_aton() failed\n");
-		exit(1);
-	}
+	servaddr.sin_family = AF_INET; 
+	servaddr.sin_port = htons(2308); 
+	servaddr.sin_addr.s_addr = INADDR_ANY; 
+	
+	int n, len; 
+	
+	FILE *fp;
+    fp=fopen("para2.txt","r");
+    char display[100];
+    while(fgets(display,100,fp)!=NULL){
+      
 
-	while(1)
-	{
-		printf("Enter message : ");
-		gets(message);
-		
-		//send the message
-		if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1)
-		{
-			die("sendto()");
-		}
-		
-		//receive a reply and print it
-		//clear the buffer by filling null, it might have previously received data
-		memset(buf,'\0', BUFLEN);
-		//try to receive some data, this is a blocking call
-		if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen) == -1)
-		{
-			die("recvfrom()");
-		}
-		
-		puts(buf);
-	}
+        char *split = strtok(display," ");
+        while(split!=NULL){
+       
+            sendto(sockfd, (const char *)split, strlen(split), 
+		MSG_CONFIRM, (const struct sockaddr *) &servaddr, 
+			sizeof(servaddr)); 
 
-	close(s);
-	return 0;
-}
+            split = strtok(NULL," ");
+        }
+
+
+    }
+    sendto(sockfd, (const char *)"\n\n", strlen("\n\n"), 
+			MSG_CONFIRM, (const struct sockaddr *) &servaddr, 
+			sizeof(servaddr));
+    fclose(fp);
+
+	close(sockfd); 
+	return 0; 
+} 

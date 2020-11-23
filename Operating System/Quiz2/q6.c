@@ -11,16 +11,9 @@ void * philosopher(void * num){
 	int phil=*(int *)num;
 
 	sem_wait(&mutex);
-
-	// printf("\nPhilosopher %d has entered room",phil);
 	sem_wait(&S[phil]);
 	sem_wait(&S[(phil+1)%5]);
-
-	// printf("\nPhilosopher %d is eating",phil); 
 	printf("P%d recieves F%d,F%d\n",phil,phil, (phil+1)%5);
-
-	// sleep(2);
-	// printf("\nPhilosopher %d has finished eating",phil);
 
 	sem_post(&S[(phil+1)%5]);
 	sem_post(&S[phil]);

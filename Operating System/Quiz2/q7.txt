@@ -1,1 +1,15 @@
+Yes,
+The system is in Safe-State and the sequence of the process is
+P0->P3->P4->P1->P2
+Here P0 is execute first
+       allocation      max     available       remaining
+	A B C D	     A B C D 	A B C D		A B C D
+p0	2 0 0 1	     4 2 1 2	3 3 2 1		2 2 1 1    
+p1	3 1 2 1	     5 2 5 2	5 3 2 2		2 1 3 1	   p0 executes 
+p2	2 1 0 3	     2 3 1 6	6 6 3 4		0 2 1 3    p3 executes 
+p3	1 3 1 2	     1 4 2 4	7 10 6 6	0 1 1 2    p4 executes 
+p4	1 4 3 2	     3 6 6 5    9 10 6 7	2 2 3 3    p1 executes 
+				12 11 8 8		   p2 executes
 
+Since there is enough memory available and process can be run without any shortage
+therefore it is a Safe State
